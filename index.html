@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ibrahim Samoo | Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #121212;
+      color: #eee;
+      scroll-behavior: smooth;
+    }
+    header {
+      background: #1e1e1e;
+      color: #fff;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      animation: slideTop 1s ease-out;
+    }
+    header h1 { font-size: 26px; font-weight: 600; }
+    nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+    nav a:hover {
+      color: #00ffcc;
+      transform: scale(1.1);
+    }
+    .hero {
+      padding: 100px 20px 80px;
+      text-align: center;
+      background: linear-gradient(to right, #1f1f1f, #222);
+      color: white;
+      animation: fadeIn 2s ease-in;
+    }
+    .hero h2 {
+      font-size: 48px;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #00ffcc, #00ff99);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .hero p { font-size: 20px; }
+    .btn {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: linear-gradient(to right, #00ffcc, #00ff99);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.7s ease;
+    }
+    section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    section h2 {
+      font-size: 36px;
+      margin-bottom: 30px;
+      text-align: center;
+      background: linear-gradient(90deg, #00ffcc, #00ff66);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 30px;
+      background: #1e1e1e;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 255, 140, 0.2);
+    }
+    .profile img {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 4px solid #00ff99;
+      object-fit: cover;
+      animation: glow 2s infinite ease-in-out;
+    }
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99; }
+      50% { box-shadow: 0 0 20px #00ffcc, 0 0 30px #00ffcc; }
+    }
+    .profile h3 {
+      font-size: 24px;
+      margin-top: 10px;
+    }
+    .animated-name {
+      font-weight: bold;
+      background: linear-gradient(90deg, #00ffcc, #00ff99, #00ccff);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 3s linear infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+    .about p {
+      text-align: center;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    .skills-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      padding: 0 10px;
+    }
+    .skill-card {
+      background: #1e1e1e;
+      border: 1px solid #444;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0,255,140,0.2);
+      transition: 0.4s ease;
+    }
+    .skill-card:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 0 25px rgba(0,255,140,0.3);
+    }
+    .skill-card h3 {
+      color: #00ffcc;
+      margin-bottom: 10px;
+    }
+    .skill-card p {
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    .projects { display: grid; gap: 20px; }
+    .project {
+      background: #1e1e1e;
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid #444;
+      box-shadow: 0 0 10px rgba(0,255,140,0.15);
+    }
+    .project:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 0 25px rgba(0,255,140,0.3);
+    }
+    .project h3 { color: #00ffcc; margin-bottom: 10px; }
+    .project video {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      margin-top: 15px;
+      border-radius: 10px;
+    }
+    .contact form input,
+    .contact form textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #444;
+      font-size: 16px;
+      background: #1e1e1e;
+      color: white;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #1e1e1e;
+      color: white;
+      margin-top: 40px;
+      animation: slideBottom 1s ease-out;
+    }
+    footer a {
+      color: #00ffcc;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+    .bar-container {
+      background: #333;
+      border-radius: 20px;
+      margin: 10px 0;
+      height: 22px;
+      overflow: hidden;
+    }
+    .bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(to right, #00ffcc, #00ff99);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+      font-size: 13px;
+      font-weight: bold;
+      color: #000;
+    }
+    .bar1 { animation: loadBar1 2s ease-out forwards; }
+    .bar2 { animation: loadBar2 2s ease-out forwards; }
+    .bar3 { animation: loadBar3 2s ease-out forwards; }
+    @keyframes loadBar1 { to { width: 80%; } }
+    @keyframes loadBar2 { to { width: 85%; } }
+    @keyframes loadBar3 { to { width: 90%; } }
+    .graphics-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .graphic-card {
+      background: #1e1e1e;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0,255,140,0.2);
+      width: 260px;
+      height: 180px;
+    }
+    .graphic-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .graphic-card:hover img {
+      transform: scale(1.1);
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideTop { from { transform: translateY(-100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes slideBottom { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @media(max-width: 600px) {
+      .hero h2 { font-size: 32px; }
+      .profile img { width: 120px; height: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Ibrahim Samoo</h1>
+  <nav>
+    <a href="#profile">Profile</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Hello, I'm Ibrahim</h2>
+  <p>Aspiring Web-Developer & AI Enthusiast</p>
+  <a href="my cv.pdf" download class="btn">Download CV</a>
+</section>
+
+<section id="profile" class="profile">
+  <h2>My Profile</h2>
+  <img src="profile.png" alt="Ibrahim Samoo">
+  <h3 class="animated-name">Ibrahim Samoo</h3>
+  <p>Computer Science Student at University Of Sindh Jamshoro | Python & AI Enthusiast | Creative Developer</p>
+</section>
+
+<section id="about" class="about">
+  <h2>About Me</h2>
+  <p>I’m a final year BS Computer Science student at the University of Sindh, Jamshoro, with a strong passion for real-world problem solving. I work on practical projects in Web Development, Artificial Intelligence, and Python Programming. I love to code and design, always exploring new technologies to build smart, creative, and user-friendly solutions.</p>
+</section>
+
+<section id="skills" class="skills">
+  <h2>My Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-card"><h3>Web Development</h3><p>HTML, CSS, JavaScript, PHP, responsive design, front-end and back-end development.</p></div>
+    <div class="skill-card"><h3>Artificial Intelligence</h3><p>Python, TensorFlow, Scikit-learn, predictive modeling and intelligent systems.</p></div>
+    <div class="skill-card"><h3>Python Development</h3><p>Python scripting, automation, desktop apps with Tkinter, CLI tools.</p></div>
+    <div class="skill-card"><h3>Graphic Designing</h3><p>Creative visuals, posters and social media graphics using Photoshop, Illustrator, Canva.</p></div>
+  </div>
+</section>
+
+<section id="projects" class="projects">
+  <h2>Projects</h2>
+  <div style="margin-bottom: 40px;">
+    <h3 style="color:#00ffcc; margin-bottom:10px;">Project Delivery Status</h3>
+    <div class="bar-container"><div class="bar bar3">Web Development - 90%</div></div>
+    <div class="bar-container"><div class="bar bar2">Artificial Intelligence - 85%</div></div>
+    <div class="bar-container"><div class="bar bar1">Python Development - 80%</div></div>
+  </div>
+  <div class="project">
+    <h3>Medical Store Management System</h3>
+    <p>A PHP-based inventory and billing system with admin/user login, PDF reports, and dynamic UI.</p>
+    <a href="https://github.com/IbrahimSamoo/Medical-Store-System.git" target="_blank" class="btn">View Code</a>
+    <video controls><source src="pharmacy.mp4" type="video/mp4"></video>
+  </div>
+  <div class="project">
+    <h3>Portfolio Website</h3>
+    <p>This fully responsive one-page portfolio site you're viewing now.</p>
+    <a href="https://github.com/IbrahimSamoo/Medical-Store-System.git" target="_blank" class="btn">View Code</a>
+    <video controls><source src="pharmacy2.mp4" type="video/mp4"></video>
+  </div>
+</section>
+
+<section id="gallery">
+  <h2>Graphic Designing Gallery</h2>
+  <div class="graphics-gallery">
+    <div class="graphic-card"><img src="pic 1.jpg" alt="Graphic Design 1"></div>
+    <div class="graphic-card"><img src="z.png" alt="Graphic Design 2"></div>
+    <div class="graphic-card"><img src="y.png" alt="Graphic Design 3"></div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <h2>Contact Me</h2>
+  <form id="contactForm">
+    <input type="text" name="name" placeholder="Your Name" required />
+    <input type="email" name="email" placeholder="Your Email" required />
+    <textarea name="message" rows="5" placeholder="Your Message..." required></textarea>
+    <button type="submit" class="btn">Send Message</button>
+    <p id="formResponse" style="color: limegreen; text-align:center; margin-top:15px;"></p>
+  </form>
+</section>
+
+<footer>
+  <p>© 2025 Ibrahim Samoo |
+    <a href="https://www.facebook.com/ibrahimsamoo.samoo.7?mibextid=ZbWKwL" target="_blank">Facebook</a> |
+    <a href="mailto:ibrahimsamoo938@gmail.com">Email</a> |
+    <a href="https://wa.me/923232584938" target="_blank">WhatsApp</a>
+  </p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add("show");
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll("section").forEach(el => observer.observe(el));
+
+  // Animated progress bars
+  window.addEventListener('load', () => {
+    document.querySelector('.bar1').style.animationPlayState = 'running';
+    document.querySelector('.bar2').style.animationPlayState = 'running';
+    document.querySelector('.bar3').style.animationPlayState = 'running';
+  });
+
+  // Handle contact form submission
+  document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const name = this.name.value.trim();
+    document.getElementById("formResponse").innerHTML = `Thanks <strong>${name}</strong>! Your message has been received.`;
+    this.reset();
+  });
+</script>
+
+</body>
+</html>
